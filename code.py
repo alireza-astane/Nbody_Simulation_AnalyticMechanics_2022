@@ -91,7 +91,7 @@ class Nbody():
       k1 = Nbody.F(X,i) 
       k2 = Nbody.F(X +Nbody.h*k1/2,i)
       k3 = Nbody.F(X +Nbody.h*k2/2,i)
-      k4 = Nbody.F(X +Nbody.h*k3/2,i)
+      k4 = Nbody.F(X +Nbody.h*k3,i)
       return Nbody.h* (k1 + 2*k2 + 2*k3 + k4)/6
 
     def F(X,i):
