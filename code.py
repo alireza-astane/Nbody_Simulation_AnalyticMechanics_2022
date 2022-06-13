@@ -32,7 +32,7 @@ class Nbody():
       for i in range(1,Nbody.N+1):
         for j in range(1,Nbody.N+1):
           if(i!=j):
-            U += np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
+            U += k*np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
         return -U/2 + Nbody.kin()
 
     def E():
@@ -40,7 +40,7 @@ class Nbody():
       for i in range(1,Nbody.N+1):
         for j in range(1,Nbody.N+1):
           if(i!=j):
-            U += np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
+            U +=k* np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
         return U/2 + Nbody.kin()
     
     def obj(i):
@@ -80,7 +80,7 @@ class Nbody():
           self.q[i] = 2*Nbody.side - self.q[i]
         elif self.q[i]<0:
           self.p[i] *= -1
-          self.p[i] *= -1
+          self.q[i] *= -1
 
         
     def dist(i,j):
