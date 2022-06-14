@@ -5,11 +5,11 @@ class Nbody():
     #class vairables
     D = 2
     N = 30
-    m = 10**-24
-    k = 10**-10
+    m = 10**4
+    k = -10**-10
     side = 100
     init_side = 1
-    init_avg_speed = 30
+    init_avg_speed = 0.1
     total_time = 1
     h = 0.00001 #time_step
     objects = []
