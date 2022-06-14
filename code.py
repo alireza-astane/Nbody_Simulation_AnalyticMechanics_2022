@@ -6,10 +6,10 @@ class Nbody():
     D = 2
     N = 30
     m = 10**-24
-    k = 10**-2
-    side = 10
+    k = 10**-10
+    side = 100
     init_side = 1
-    init_avg_speed = 300
+    init_avg_speed = 30
     total_time = 1
     h = 0.00001 #time_step
     objects = []
@@ -20,7 +20,7 @@ class Nbody():
     #class functions
     def __init__(self):
         self.q = Nbody.init_side * np.random.standard_normal(size=Nbody.D)  
-        self.p = Nbody.init_avg_speed * np.random.standard_normal(size=Nbody.D) 
+        self.p = Nbody.m* Nbody.init_avg_speed * np.random.standard_normal(size=Nbody.D) 
         Nbody.objects.append(self)
         
     def kin():
@@ -32,7 +32,7 @@ class Nbody():
       for i in range(1,Nbody.N+1):
         for j in range(1,Nbody.N+1):
           if(i!=j):
-            U += k*np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
+            U += Nbody.k*np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
         return -U/2 + Nbody.kin()
 
     def E():
@@ -40,7 +40,7 @@ class Nbody():
       for i in range(1,Nbody.N+1):
         for j in range(1,Nbody.N+1):
           if(i!=j):
-            U +=k* np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
+            U +=Nbody.k* np.log(np.linalg.norm(Nbody.obj(i).q-Nbody.obj(j).q))
         return U/2 + Nbody.kin()
     
     def obj(i):
@@ -95,15 +95,17 @@ class Nbody():
       return Nbody.h* (k1 + 2*k2 + 2*k3 + k4)/6
 
     def F(X,i):
-      f = Nbody.h*X[1]/Nbody.m
+      f = X[1]/Nbody.m
       g = 0  
       for j in range(1,i):
-        g += np.sign(Nbody.obj(i).q -Nbody.obj(j).q)/np.linalg.norm(X[0] -Nbody.obj(j).q)
+        g += (X[0] -Nbody.obj(j).q)/np.inner((X[0] -Nbody.obj(j).q),(X[0] -Nbody.obj(j).q))
       for j in range(i+1,Nbody.N+1):
-        g += np.sign(Nbody.obj(i).q -Nbody.obj(j).q)/np.linalg.norm(X[0] -Nbody.obj(j).q)
-      g *= -1*Nbody.h*Nbody.k/2
+        g += (X[0] -Nbody.obj(j).q)/np.inner((X[0] -Nbody.obj(j).q),(X[0] -Nbody.obj(j).q))
+      g *= -Nbody.k
 
-      return np.array(f,g)
+      print(f)
+      print(g)
+      return np.array([f,g])
 
     def delta_q(i):
       return Nbody.h*Nbody.obj(i).p/Nbody.m
@@ -111,9 +113,9 @@ class Nbody():
     def delta_p(i):
       ret1 = 0
       for j in range(1,i):
-        ret1 += 1/np.linalg.norm(Nbody.obj(i).q -Nbody.obj(j).q)
+        ret1 += np.sign(Nbody.obj(i).q -Nbody.obj(j).q)/np.linalg.norm(Nbody.obj(i).q -Nbody.obj(j).q)
       for j in range(i+1,Nbody.N+1):
-        ret1 += 1/np.linalg.norm(Nbody.obj(i).q -Nbody.obj(j).q)
+        ret1 += np.sign(Nbody.obj(i).q -Nbody.obj(j).q)/np.linalg.norm(Nbody.obj(i).q -Nbody.obj(j).q)
 
       return -ret1*Nbody.h*Nbody.k/2
 
@@ -136,6 +138,7 @@ class Nbody():
 
     def plot_E():
       plt.plot(range(int(Nbody.total_time/Nbody.h)),Nbody.E_data)  
+
 
 
 Nbody.create()
