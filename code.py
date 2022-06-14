@@ -98,9 +98,9 @@ class Nbody():
       f = Nbody.h*X[1]/Nbody.m
       g = 0  
       for j in range(1,i):
-        g += 1/np.linalg.norm(X[0] -Nbody.obj(j).q)
+        g += np.sign(Nbody.obj(i).q -Nbody.obj(j).q)/np.linalg.norm(X[0] -Nbody.obj(j).q)
       for j in range(i+1,Nbody.N+1):
-        g += 1/np.linalg.norm(X[0] -Nbody.obj(j).q)
+        g += np.sign(Nbody.obj(i).q -Nbody.obj(j).q)/np.linalg.norm(X[0] -Nbody.obj(j).q)
       g *= -1*Nbody.h*Nbody.k/2
 
       return np.array(f,g)
