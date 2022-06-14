@@ -128,14 +128,14 @@ class Nbody():
         
 
     def plot_H():
-      plt.plot(range(int(Nbody.total_time/Nbody.time_step)),Nbody.H_data)
+      plt.plot(range(int(Nbody.total_time/Nbody.h)),Nbody.H_data)
 
     
     def plot_K():
-      plt.plot(range(int(Nbody.total_time/Nbody.time_step)),Nbody.K_data)  
+      plt.plot(range(int(Nbody.total_time/Nbody.h)),Nbody.K_data)  
 
     def plot_E():
-      plt.plot(range(int(Nbody.total_time/Nbody.time_step)),Nbody.E_data)  
+      plt.plot(range(int(Nbody.total_time/Nbody.h)),Nbody.E_data)  
 
 
 Nbody.create()
